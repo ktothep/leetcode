@@ -6,19 +6,17 @@ class Node:
         self.right = None
 
 #Constructed Binary Tree
-a=Node(1)
+a=Node(4)
 b=Node(2)
-c=Node(3)
-d=Node(4)
-e=Node(5)
-f=Node(6)
-g=Node(7)
+c=Node(6)
+d=Node(1)
+e=Node(3)
+
 a.left=b
 a.right=c
 b.left=d
 b.right=e
-c.left=f
-c.right=g
+
 
 rev=[]
 #Breadth First Traversal
@@ -112,10 +110,53 @@ def rightview(root):
                 q.append(x.right)
     print(res)
 
+def sumLeftLeaves(root):
+    q=deque()
+    q.appendleft(root)
+    sum=0
+    while q:
+        level=len(q)
+        for i in range(level):
+            x=q.popleft()
+            if  x.left and not x.left.left and not x.left.right:
+                sum+=x.value
+            if x.left:
+                 q.append(x.left)
+            if x.right:
+                q.append(x.right)
+    print(sum)
+
+def minDistanceNode(root):
+    q = deque()
+    q.appendleft(root)
+    mini_value = float('inf')
+    while q:
+        x=q.popleft()
+        if x.left:
+            mini_value=min(abs(x.value-x.left.value),mini_value)
+            q.append(x.left)
+        if x.right:
+            mini_value=min(abs(x.value-x.right.value),mini_value)
+            q.append(x.right)
+    return mini_value
+
+def pathSum(root,targetSum):
+    q=deque()
+    q.appendleft((root,root.value))
+    while q:
+        x, x_val = q.popleft()
+        if x_val == targetSum and not x.left and not x.right:
+            return True
+        if x.left:
+            q.append((x.left, x_val + x.left.val))
+        if x.right:
+            q.append((x.right, x_val + x.right.val))
 #breadthfirst(a)
 #breadthfirst_reverse(a)
 #average(a)
 #print(mindepth(a))
 #print(levelorder(a,3))
-rightview(a)
+#rightview(a)
+#(minDistanceNode(a))
+pathSum(a,9)
 

@@ -1,0 +1,10 @@
+nums=[3,2,1,1,2,3,1,3,2,1]
+head=0
+tail=2
+ans=0
+while(tail<len(nums)):
+    ans+=min(nums[head:tail+1])
+    ind=nums.index(min(nums[head:tail+1]))
+    head=ind+1
+    tail=head+2
+print(ans)
